@@ -1,0 +1,53 @@
+<div class="page-width-desktop">
+    <h1 class="{{ section.settings.section-title }}">{{ section.settings.section-title }}</h1>
+    <p class="{{ section.settings.section-paragraph }}">
+        {{ section.settings.section-paragraph | newline_to_br }}
+    </p>
+    <div class="rich-textarea">
+        {{ section.settings.section-rich-text }}
+    </div>
+</div>
+
+{% style %}
+    .page-width-desktop {
+        padding: 36px;
+    }
+
+    .{{ section.settings.section-title }} {
+        text-align: center;
+    }
+{% endstyle %}
+
+{% schema %}
+    {
+        "name": "固定テキストセクション",
+        "settings": [
+            {
+                "type": "text",
+                "label": "タイトル",
+                "id": "section-title",
+                "default": "タイトル",
+                "info": "セクションのタイトルを入力してください。"
+            },
+            {
+                "type": "textarea",
+                "label": "説明文",
+                "id": "section-paragraph",
+                "default": "説明文",
+                "info": "セクションの説明文を入力してください。"
+            },
+            {
+                "type": "richtext",
+                "label": "リッチテキスト",
+                "id": "section-rich-text",
+                "default": "<p>リッチテキスト</p>",
+                "info": "セクションの説明文を入力してください。"
+            }
+        ],
+        "presets": [
+            {
+                "name": "固定テキストセクション"
+            }
+        ]
+    }
+{% endschema %}
