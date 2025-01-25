@@ -1,0 +1,121 @@
+<div class="page-width-desktop">
+  <div class="content-container {% if section.settings.reverse_layout %}reverse-layout{% endif %}">
+    <!-- 画像コンテナ -->
+    <div class="image-container">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          alt="{{ section.settings.title | default: '画像の説明がありません。' }}"
+        >
+      {% else %}
+        <p>画像が選択されていません。</p>
+      {% endif %}
+    </div>
+
+    <!-- テキストコンテナ -->
+    <div class="description-container">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      <p class="section-description">{{ section.settings.description | newline_to_br }}</p>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .page-width-desktop {
+    padding: 36px;
+  }
+
+  /* 横並びの親コンテナ */
+  .content-container {
+    display: flex;
+    gap: 24px; /* コンテンツ間の余白 */
+    align-items: center; /* 垂直方向を中央揃え */
+  }
+
+  /* レイアウトを反転するオプション */
+  .content-container.reverse-layout {
+    flex-direction: row-reverse;
+  }
+
+  /* 画像コンテナのスタイル */
+  .image-container {
+    flex: 1; /* 幅を均等に分配 */
+    min-width: 50%; /* 最低50%幅を確保 */
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* 角を丸くする */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* シャドウ効果 */
+  }
+
+  /* テキストコンテナのスタイル */
+  .description-container {
+    flex: 1; /* 幅を均等に分配 */
+    min-width: 50%; /* 最低50%幅を確保 */
+  }
+
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .section-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  /* モバイル対応（縦並び） */
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+    }
+
+    .image-container,
+    .description-container {
+      max-width: 100%; /* モバイル時は100%幅 */
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "画像と説明セクション",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "画像",
+      "info": "画像を選択してください。"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "タイトル",
+      "default": "セクションのタイトル",
+      "info": "このセクションのタイトルを入力してください。"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "説明文",
+      "default": "ここに説明文を入力してください。",
+      "info": "説明文を入力してください。改行も可能です。"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_layout",
+      "label": "レイアウトを反転する",
+      "default": false,
+      "info": "画像と説明文を左右入れ替えます。"
+    }
+  ],
+  "presets": [
+    {
+      "name": "画像と説明セクション"
+    }
+  ]
+}
+{% endschema %}
